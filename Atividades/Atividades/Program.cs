@@ -1,4 +1,6 @@
-﻿namespace Atividades { 
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace Atividades { 
 
     class Program {
         static void Main(string[] args) {
@@ -13,7 +15,9 @@
             //Dia2.RaizQuadrada(144);
             //Dia3.Tabuala();
             //Dia4.ContagemRegressiva(10);
-            Dia5.MediaNotas(7.5, 8.0, 9.0);
+            //Dia5.MediaNotas(7.5, 8.0, 9.0);
+            //Dia6.AdvinheONumero();
+            Dia7.CadastroDeUsuarios();
         }
          
     }
@@ -121,6 +125,69 @@
             Console.WriteLine($"A média das notas é: {soma / notas.Length}");
         }
 
+    }
+
+    public static class Dia6 {
+
+        public static void AdvinheONumero() {
+
+            Random random = new Random();
+
+            int numeroSecreto = random.Next(1, 101);
+            int tentativas = 0;
+            int palpite = 0;
+            bool acertou = false;
+            Console.WriteLine("Bem-vindo ao jogo de adivinhação! Tente adivinhar o número entre 1 e 100.");
+            while (!acertou) {
+                Console.WriteLine("Digite seu Palpite");
+                palpite = int.Parse(Console.ReadLine() ?? "0");
+                tentativas++;
+                if (palpite == numeroSecreto) {
+                    acertou = true;
+                    Console.WriteLine($"Parabéns! Você adivinhou o número {numeroSecreto} em {tentativas} tentativas.");
+                } else if (palpite < numeroSecreto) {
+                    Console.WriteLine("O número é maior. Tente novamente.");
+                } else {
+                    Console.WriteLine("O número é menor. Tente novamente.");
+                }
+            }
+        }
+
+
+    }
+
+    public static class Dia7 {
+
+        public static void CadastroDeUsuarios() {
+
+            List<string> usuarios = new List<string>();
+            string opcao = string.Empty;
+            do {
+                Console.WriteLine("Digite o nome do usuário para cadastrar (ou 'sair' para encerrar):");
+                string usuario = Console.ReadLine() ?? string.Empty;
+                if (usuario.ToLower() == "sair") {
+                    break;
+                }
+                if (!usuarios.Contains(usuario)) {
+                    usuarios.Add(usuario);
+                    Console.WriteLine($"Usuário '{usuario}' cadastrado com sucesso!");
+                } else {
+                    Console.WriteLine($"Usuário '{usuario}' já está cadastrado.");
+                }
+                Console.WriteLine("Deseja cadastrar outro usuário? (s/n)");
+                opcao = Console.ReadLine() ?? string.Empty;
+            } while (opcao.ToLower() == "s");
+            Console.WriteLine("Usuários cadastrados:");
+            foreach (var u in usuarios) {
+                Console.WriteLine(u);
+            }
+
+
+
+
+
+
+        }
     }
 
 
